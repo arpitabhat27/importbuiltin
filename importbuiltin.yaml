@@ -1,0 +1,30 @@
+name: importbuiltin
+namespace: com.example.stylebooks
+version: "0.1"
+display-name: Load Balancing Configuration
+description: This StyleBook defines a simple load balancing configuration.
+schema-version: "1.0"
+builtin: true
+import-stylebooks:
+ -
+  namespace: netscaler.nitro.config
+  version: "10.5"
+  prefix: ns
+parameters:
+
+ -
+  name: name
+  type: string
+  label: Application Name
+  description: Give a name to the application configuration.
+  required: true
+components:
+ -
+  name: lbvserver-comp
+  type: ns::lbvserver
+  properties:
+   name: $parameters.name + "-lbvserver"
+   servicetype: HTTP
+   ipv46: 1.1.1.1
+   port: 80
+   lbmethod: roundrobin
